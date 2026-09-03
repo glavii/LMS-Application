@@ -13,7 +13,9 @@ namespace LMS_Application
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                })
+                .Services.AddSingleton<DatabaseService>();//Dependency Injection
+            //Singleton vs Transient
 
 #if DEBUG
     		builder.Logging.AddDebug();

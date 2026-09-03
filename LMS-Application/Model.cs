@@ -1,20 +1,24 @@
-﻿namespace LMS-Application;
+namespace LMS_Application;
 
-public class Store
+public abstract class Livestock
 {
     [PrimaryKey, AutoIncrement]
     public int Id { get; set; }
     public double Expense { get; set; }
     public double Weight { get; set; }
-    public string Colour { get; set; }
+    public string Colour { get; set; } = string.Empty;
+    [Ignore]
+    public string Type => GetType().Name;
 }
+
 [Table("Cow")]
-public class Cow : Store
+public class Cow : Livestock
 {
     public double Milk { get; set; }
 }
+
 [Table("Sheep")]
-public class Sheep : Store
+public class Sheep : Livestock
 {
     public double Wool { get; set; }
 }

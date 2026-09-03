@@ -1,15 +1,17 @@
-﻿namespace LMS-Applicatiion;
+namespace LMS_Application;
 
 public class DatabaseService
 {
     private readonly SQLiteConnection _conn;
+
     public DatabaseService()
     {
         var dbName = "FarmData.db";
         //in production
-        //var dbPath = Path.Combine(FileSystem.AppDataDirectory, dbName);
+        var dbPath = Path.Combine(FileSystem.AppDataDirectory, dbName);
         //during debugging
-        var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "debug"+dbName);
+        //var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "debug" + dbName);
+
         if (File.Exists(dbPath) == false)
         {
             using Stream stream = Current.OpenAppPackageFileAsync(dbName).Result;
@@ -19,25 +21,29 @@ public class DatabaseService
         }
         _conn = new SQLiteConnection(dbPath);
     }
-    public List<Store> ReadItems()
+
+    public List<Livestock> ReadItems()
     {
-        var stores = new List<Store>();
+        var livestock = new List<Livestock>();
         var lst1 = _conn.Table<Cow>().ToList();
-        stores.AddRange(lst1);
+        livestock.AddRange(lst1);
         var lst2 = _conn.Table<Sheep>().ToList();
-        stores.AddRange(lst2);
-        return stores;
+        livestock.AddRange(lst2);
+        return livestock;
     }
+
     //CRUD
-    public int InsertItem(Store item)
+    public int InsertItem(Livestock item)
     {
         return _conn.Insert(item);
     }
-    public int DeleteItem(Store item)
+
+    public int DeleteItem(Livestock item)
     {
         return _conn.Delete(item);
     }
-    public int UpdateItem(Store item)
+
+    public int UpdateItem(Livestock item)
     {
         return _conn.Update(item);
     }
