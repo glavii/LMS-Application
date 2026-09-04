@@ -12,6 +12,12 @@
             Shell.NavBarIsVisible="False"
             ContentTemplate="{DataTemplate pages:DataPage}"
             Route="DataPage" />
+
+        <ShellContent
+            Title="Add"
+            Shell.NavBarIsVisible="False"
+            ContentTemplate="{DataTemplate pages:AddLivestockPage}"
+            Route="AddLivestockPage" />
     </TabBar>
 
 </Shell>
