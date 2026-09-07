@@ -38,10 +38,26 @@ public class DatabaseService
         return _conn.Insert(item);
     }
 
-    public int DeleteItem(Livestock item)
+
+    public Livestock? GetItemById(int id)
     {
-        return _conn.Delete(item);
+        var cow = _conn.Table<Cow>().FirstOrDefault(c => c.Id == id);
+        if (cow is not null) return cow;
+
+        var sheep = _conn.Table<Sheep>().FirstOrDefault(s => s.Id == id);
+        if (sheep is not null) return sheep;
+
+        return null;
     }
+
+    public int DeleteItem(int id)
+    {
+        var item = GetItemById(id);
+        if (item is null) return 0;
+
+        return _conn.Delete(item); // uses your existing DeleteItem(Livestock item) overload
+    }
+  
 
     public int UpdateItem(Livestock item)
     {
