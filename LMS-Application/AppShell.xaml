@@ -18,6 +18,11 @@
             Shell.NavBarIsVisible="False"
             ContentTemplate="{DataTemplate pages:AddLivestockPage}"
             Route="AddLivestockPage" />
+        <ShellContent
+         Title="Remove Livestock"
+         Shell.NavBarIsVisible="False"
+         ContentTemplate="{DataTemplate pages:RemoveLivestockPage}"
+         Route="RemoveLivestockPage" />
     </TabBar>
 
 </Shell>
