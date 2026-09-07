@@ -1,9 +1,9 @@
 namespace LMS_Application.Pages;
 
-public partial class DataPage : ContentPage
+public partial class DisplayPage : ContentPage
 {
     public ObservableCollection<Livestock> Livestocks { get; set; } = [];
-    public DataPage(DatabaseService dbs)
+    public DisplayPage(DatabaseService dbs)
     {
         InitializeComponent();
         BindingContext = this;

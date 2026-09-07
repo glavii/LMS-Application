@@ -10,8 +10,8 @@
         <ShellContent
             Title="Livestock"
             Shell.NavBarIsVisible="False"
-            ContentTemplate="{DataTemplate pages:DataPage}"
-            Route="DataPage" />
+            ContentTemplate="{DataTemplate pages:DisplayPage}"
+            Route="DisplayPage" />
 
         <ShellContent
             Title="Add"
@@ -23,6 +23,12 @@
          Shell.NavBarIsVisible="False"
          ContentTemplate="{DataTemplate pages:RemoveLivestockPage}"
          Route="RemoveLivestockPage" />
+
+        <ShellContent
+         Title="Update Livestock"
+         Shell.NavBarIsVisible="False"
+         ContentTemplate="{DataTemplate pages:UpdateLivestockPage}"
+         Route="UpdateLivestockPage" /> 
     </TabBar>
 
 </Shell>
