@@ -23,6 +23,11 @@
          Shell.NavBarIsVisible="False"
          ContentTemplate="{DataTemplate pages:RemoveLivestockPage}"
          Route="RemoveLivestockPage" />
+        <ShellContent
+       Title="Profit Forecast"
+       Shell.NavBarIsVisible="False"
+       ContentTemplate="{DataTemplate pages:ProfitForecastPage}"
+       Route="ProfitForecastPage" />   
     </TabBar>
 
 </Shell>

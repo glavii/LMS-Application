@@ -79,6 +79,9 @@
 	  <MauiXaml Update="Pages\DataPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\ProfitForecastPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\RemoveLivestockPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
