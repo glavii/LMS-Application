@@ -28,7 +28,13 @@
          Title="Update Livestock"
          Shell.NavBarIsVisible="False"
          ContentTemplate="{DataTemplate pages:UpdateLivestockPage}"
-         Route="UpdateLivestockPage" /> 
-    </TabBar>
+         Route="UpdateLivestockPage" />
 
+        <ShellContent
+          Title="Profit Forecast"
+          Shell.NavBarIsVisible="False"
+          ContentTemplate="{DataTemplate pages:ProfitForecastPage}"
+          Route="ProfitForecastPage" />
+    </TabBar>
+   
 </Shell>
