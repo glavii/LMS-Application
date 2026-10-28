@@ -4,41 +4,42 @@
              xmlns:local="clr-namespace:LMS_Application"
              xmlns:pages="clr-namespace:LMS_Application.Pages"
              x:DataType="pages:RemoveLivestockPage"
-             Title="Remove Livestock">
+             Title="Remove Livestock"
+             BackgroundColor="#06AB78">
 
     <VerticalStackLayout Padding="20" Spacing="15" WidthRequest="400">
         <Label Text="Remove records" FontAttributes="Bold" />
 
         <Label Text="Enter livestock id" />
-        <Entry x:Name="IdEntry" Placeholder="Livestock ID" Keyboard="Numeric" />
+        <Entry x:Name="IdEntry" Placeholder="Livestock ID" Keyboard="Numeric"  BackgroundColor="White" TextColor="Black"/>
 
-        <Button Text="Remove" Clicked="DeleteButton_Clicked" />
+        <Button Text="Remove" Clicked="DeleteButton_Clicked" BackgroundColor="White" TextColor="Black" />
 
         <!-- Reused row template from DataPage, bound to the single found record -->
         <CollectionView ItemsSource="{Binding FoundRecord}"
                         IsVisible="{Binding HasFoundRecord}">
             <CollectionView.Header>
-                <Grid BackgroundColor="LightBlue" ColumnDefinitions="*,*,*,*,*,*,*" Padding="10" >
-                    <Label Grid.Column="0" Text="Type" TextColor="Black"/>
-                    <Label Grid.Column="1" Text="Id" TextColor="Black"/>
-                    <Label Grid.Column="2" Text="Expense" TextColor="Black"/>
-                    <Label Grid.Column="3" Text="Weight" TextColor="Black"/>
-                    <Label Grid.Column="4" Text="Colour" TextColor="Black"/>
-                    <Label Grid.Column="5" Text="Milk" TextColor="Black"/>
-                    <Label Grid.Column="6" Text="Wool" TextColor="Black"/>
+                <Grid BackgroundColor="#06AB78" ColumnDefinitions="*,*,*,*,*,*,*" Padding="10" >
+                    <Label Grid.Column="0" Text="Type" TextColor="White"/>
+                    <Label Grid.Column="1" Text="Id" TextColor="White"/>
+                    <Label Grid.Column="2" Text="Expense" TextColor="White"/>
+                    <Label Grid.Column="3" Text="Weight" TextColor="White"/>
+                    <Label Grid.Column="4" Text="Colour" TextColor="White"/>
+                    <Label Grid.Column="5" Text="Milk" TextColor="White"/>
+                    <Label Grid.Column="6" Text="Wool" TextColor="White"/>
                 </Grid>
             </CollectionView.Header>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="local:Livestock">
-                    <Border BackgroundColor="Transparent" StrokeShape="RoundRectangle 10" Padding="5">
+                    <Border BackgroundColor="Black" StrokeShape="RoundRectangle 10" Padding="5">
                         <Grid ColumnDefinitions="*,*,*,*,*,*,*">
-                            <Label Grid.Column="0" Text="{Binding Type}" TextColor="Black"/>
-                            <Label Grid.Column="1" Text="{Binding Id}" TextColor="Black"/>
-                            <Label Grid.Column="2" Text="{Binding Expense}" TextColor="Black"/>
-                            <Label Grid.Column="3" Text="{Binding Weight}" TextColor="Black"/>
-                            <Label Grid.Column="4" Text="{Binding Colour}" TextColor="Black"/>
-                            <Label Grid.Column="5" x:DataType="local:Cow" Text="{Binding Milk}" TextColor="Black"/>
-                            <Label Grid.Column="6" x:DataType="local:Sheep" Text="{Binding Wool}" TextColor="Black"/>
+                            <Label Grid.Column="0" Text="{Binding Type}" TextColor="White"/>
+                            <Label Grid.Column="1" Text="{Binding Id}" TextColor="White"/>
+                            <Label Grid.Column="2" Text="{Binding Expense}" TextColor="White"/>
+                            <Label Grid.Column="3" Text="{Binding Weight}" TextColor="White"/>
+                            <Label Grid.Column="4" Text="{Binding Colour}" TextColor="White"/>
+                            <Label Grid.Column="5" x:DataType="local:Cow" Text="{Binding Milk}" TextColor="White"/>
+                            <Label Grid.Column="6" x:DataType="local:Sheep" Text="{Binding Wool}" TextColor="White"/>
                         </Grid>
                     </Border>
                 </DataTemplate>

@@ -1,25 +1,31 @@
 <ContentPage x:Class="LMS_Application.Pages.AddLivestockPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="Add Livestock">
-    <VerticalStackLayout Padding="20" Spacing="15" WidthRequest="400">
+             Title="Add Livestock"
+             BackgroundColor="#06AB78">
+    <VerticalStackLayout Padding="20" Spacing="15" WidthRequest="400" >
 
         <Label Text="Livestock Type" />
         <Picker x:Name="LivestockTypePicker"
                 ItemsSource="{Binding LivestockTypes}"
-                SelectedIndexChanged="LivestockTypePicker_SelectedIndexChanged" />
+                SelectedIndexChanged="LivestockTypePicker_SelectedIndexChanged" 
+                 BackgroundColor="#06AB78"
+               />
 
-        <Entry x:Name="ExpenseEntry" Placeholder="Expense" Keyboard="Numeric" />
-        <Entry x:Name="WeightEntry" Placeholder="Weight" Keyboard="Numeric" />
+        <Entry x:Name="ExpenseEntry" Placeholder="Expense" Keyboard="Numeric" TextColor="White" />
+        <Entry x:Name="WeightEntry" Placeholder="Weight" Keyboard="Numeric" TextColor="White" />
 
         <Label Text="Colour" />
         <Picker x:Name="ColourPicker"
-                ItemsSource="{Binding ColourOptions}" />
+                ItemsSource="{Binding ColourOptions}"
+                TextColor="White" 
+                 BackgroundColor="#06AB78"
+               />
 
         <!-- Type-specific field -->
-        <Entry x:Name="MilkEntry" Placeholder="Milk" Keyboard="Numeric" IsVisible="False" />
-        <Entry x:Name="WoolEntry" Placeholder="Wool" Keyboard="Numeric" IsVisible="False" />
+        <Entry x:Name="MilkEntry" Placeholder="Milk" Keyboard="Numeric" IsVisible="False" BackgroundColor="White" TextColor="Black"/>
+        <Entry x:Name="WoolEntry" Placeholder="Wool" Keyboard="Numeric" IsVisible="False" BackgroundColor="White" TextColor="Black" />
 
-        <Button Text="Add" Clicked="AddButton_Clicked" />
+        <Button Text="Add" Clicked="AddButton_Clicked" BackgroundColor="White" TextColor="Black"/>
     </VerticalStackLayout>
 </ContentPage>
