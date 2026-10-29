@@ -5,7 +5,8 @@
              xmlns:pages="clr-namespace:LMS_Application.Pages"
              x:DataType="pages:RemoveLivestockPage"
              Title="Remove Livestock"
-             BackgroundColor="#06AB78">
+             BackgroundColor="#06AB78"
+            >
 
     <VerticalStackLayout Padding="20" Spacing="15" WidthRequest="400">
         <Label Text="Remove records" FontAttributes="Bold" />

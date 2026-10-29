@@ -2,9 +2,11 @@ namespace LMS_Application.Pages;
 
 public partial class DisplayPage : ContentPage
 {
+
     public ObservableCollection<Livestock> Livestocks { get; set; } = [];
     public DisplayPage(DatabaseService dbs)
     {
+
         InitializeComponent();
         BindingContext = this;
         dbs.ReadItems().ForEach(x => Livestocks.Add(x));
@@ -15,5 +17,7 @@ public partial class DisplayPage : ContentPage
             dbs.ReadItems().ForEach(x => Livestocks.Add(x));
         }
         );
+
+
     }
 }
