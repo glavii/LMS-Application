@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:LMS_Application"
              xmlns:pages="clr-namespace:LMS_Application.Pages"
              x:DataType="pages:DisplayPage"
-             Title="DisplayPage"
+             Title="List"
              BackgroundColor="#06AB78">
     <CollectionView ItemsSource="{Binding Livestocks}"
                     ItemsUpdatingScrollMode="KeepLastItemInView">

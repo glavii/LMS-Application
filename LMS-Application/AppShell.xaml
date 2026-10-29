@@ -4,37 +4,13 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:LMS_Application.Pages"
-    Title="Livestock Management System">
+    Title="Livestock Management System"
+    FlyoutBehavior="Locked"
+    FlyoutWidth="180">
 
-    <TabBar>
-        <ShellContent
-            Title="Livestock"
-            Shell.NavBarIsVisible="False"
-            ContentTemplate="{DataTemplate pages:DisplayPage}"
-            Route="DisplayPage" />
-
-        <ShellContent
-            Title="Add"
-            Shell.NavBarIsVisible="False"
-            ContentTemplate="{DataTemplate pages:AddLivestockPage}"
-            Route="AddLivestockPage" />
-        <ShellContent
-         Title="Remove Livestock"
-         Shell.NavBarIsVisible="False"
-         ContentTemplate="{DataTemplate pages:RemoveLivestockPage}"
-         Route="RemoveLivestockPage" />
-
-        <ShellContent
-         Title="Update Livestock"
-         Shell.NavBarIsVisible="False"
-         ContentTemplate="{DataTemplate pages:UpdateLivestockPage}"
-         Route="UpdateLivestockPage" />
-
-        <ShellContent
-          Title="Profit Forecast"
-          Shell.NavBarIsVisible="False"
-          ContentTemplate="{DataTemplate pages:ProfitForecastPage}"
-          Route="ProfitForecastPage" />
-    </TabBar>
-   
+    <ShellContent Title="Livestock" ContentTemplate="{DataTemplate pages:DisplayPage}" Route="DisplayPage" />
+    <ShellContent Title="Add" ContentTemplate="{DataTemplate pages:AddLivestockPage}" Route="AddLivestockPage" />
+    <ShellContent Title="Update" ContentTemplate="{DataTemplate pages:UpdateLivestockPage}" Route="UpdateLivestockPage" />
+    <ShellContent Title="Remove" ContentTemplate="{DataTemplate pages:RemoveLivestockPage}" Route="RemoveLivestockPage" />
+    <ShellContent Title="Forecast" ContentTemplate="{DataTemplate pages:ProfitForecastPage}" Route="ProfitForecastPage" />
 </Shell>
