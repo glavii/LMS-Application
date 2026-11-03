@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="LMS_Application.Pages.LivestockStatisticsPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:LMS_Application.Pages"
+             x:DataType="pages:LivestockStatisticsPage"
+             Title="Livestock Statistics"
+             BackgroundColor="#06AB78">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15" WidthRequest="400">
+
+            <Label Text="Livestock Type" TextColor="White" />
+            <Picker x:Name="LivestockTypePicker"
+                    ItemsSource="{Binding LivestockTypes}"
+                    SelectedIndex="0"
+                    TextColor="White"
+                    BackgroundColor="#06AB78" />
+
+            <Label Text="Colour" TextColor="White" />
+            <Picker x:Name="ColourPicker"
+                    ItemsSource="{Binding ColourOptions}"
+                    SelectedIndex="0"
+                    TextColor="White"
+                    BackgroundColor="#06AB78" />
+
+            <Label Text="Days to Project" TextColor="White" />
+            <Entry x:Name="ProjectionDays"
+                   Placeholder="Enter number of days to project"
+                   Keyboard="Numeric"
+                   TextColor="Black"
+                   BackgroundColor="White" />
+
+            <Button Text="Calculate"
+                    Clicked="CalculateButton_Clicked"
+                    BackgroundColor="White"
+                    TextColor="Black"
+                    BorderColor="LightGrey"
+                    BorderWidth="2" />
+
+            <Label x:Name="ErrorLabel" TextColor="White" IsVisible="False" />
+
+            <VerticalStackLayout x:Name="ResultPanel" BackgroundColor="White"
+                                 Padding="10" Spacing="5" IsVisible="False">
+                <Label Text="Livestock Statistics" FontAttributes="Bold" TextColor="Black" />
+                <Label x:Name="SelectedCountLabel" TextColor="Black" />
+                <Label x:Name="PercentageLabel" TextColor="Black" />
+                <Label x:Name="TotalTaxLabel" TextColor="Black" />
+                <Label x:Name="TotalProfitLabel" TextColor="Black" />
+                <Label x:Name="AverageWeightLabel" TextColor="Black" />
+                <Label x:Name="TotalProduceLabel" TextColor="Black" />
+                <Label x:Name="TotalMilkLabel" TextColor="Black" />
+                <Label x:Name="TotalWoolLabel" TextColor="Black" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout x:Name="DailyProfitPanel" BackgroundColor="White"
+                                 Padding="10" Spacing="5" IsVisible="False">
+                <Label Text="Daily Profit Breakdown" FontAttributes="Bold" TextColor="Black" />
+                <Label x:Name="TotalDailyProfitLabel" TextColor="Black" />
+                <Label x:Name="DailyCowProfitLabel" TextColor="Black" />
+                <Label x:Name="DailySheepProfitLabel" TextColor="Black" />
+                <Label x:Name="AverageCowProfitLabel" TextColor="Black" />
+                <Label x:Name="AverageSheepProfitLabel" TextColor="Black" />
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

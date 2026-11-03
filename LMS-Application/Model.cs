@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace LMS_Application;
 
 public abstract class Livestock
@@ -35,4 +39,28 @@ public class Sheep : Livestock
     public override double DailyProfit =>
         (Wool * WoolPrice) - (Expense + (Weight * TaxPerKg));
 
+}
+public class FarmStatistics
+{
+    public int SelectedCount { get; set; }
+    public double Percentage { get; set; }
+    public double TotalTax { get; set; }
+    public double TotalProfit { get; set; }
+    public double AverageWeight { get; set; }
+    public double TotalMilk { get; set; }
+    public double TotalWool { get; set; }
+
+    public double TotalProduce => TotalMilk + TotalWool;
+
+    public bool ShowDailyProfitBreakdown { get; set; }
+
+    public double TotalDailyCowProfit { get; set; }
+    public double TotalDailySheepProfit { get; set; }
+    public double AverageDailyCowProfit { get; set; }
+    public double AverageDailySheepProfit { get; set; }
+
+    public double TotalDailyProfit =>
+        TotalDailyCowProfit + TotalDailySheepProfit;
+
+    
 }

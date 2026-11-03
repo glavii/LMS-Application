@@ -13,4 +13,5 @@
     <ShellContent Title="Update" ContentTemplate="{DataTemplate pages:UpdateLivestockPage}" Route="UpdateLivestockPage" />
     <ShellContent Title="Remove" ContentTemplate="{DataTemplate pages:RemoveLivestockPage}" Route="RemoveLivestockPage" />
     <ShellContent Title="Forecast" ContentTemplate="{DataTemplate pages:ProfitForecastPage}" Route="ProfitForecastPage" />
+    <ShellContent Title="Statistics" ContentTemplate="{DataTemplate pages:LivestockStatisticsPage}" Route="LivestockStatisticsPage" />
 </Shell>
