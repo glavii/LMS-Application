@@ -2,30 +2,205 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Add Livestock"
-             BackgroundColor="#06AB78">
-    <VerticalStackLayout Padding="20" Spacing="15" WidthRequest="400" >
+             BackgroundColor="{AppThemeBinding Light=#F7F7F5, Dark=#1C1C1E}">
 
-        <Label Text="Livestock Type" />
-        <Picker x:Name="LivestockTypePicker"
-                ItemsSource="{Binding LivestockTypes}"
-                SelectedIndexChanged="LivestockTypePicker_SelectedIndexChanged" 
-                 BackgroundColor="#06AB78"
-               />
+    <ContentPage.Resources>
+        <Style x:Key="PageH" TargetType="Label">
+            <Setter Property="FontSize" Value="26" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#1F2937, Dark=#F3F4F6}" />
+        </Style>
+        <Style x:Key="PageSub" TargetType="Label">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" />
+        </Style>
+        <Style x:Key="Section" TargetType="Label" BasedOn="{StaticResource PageSub}">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+        </Style>
+        <Style x:Key="Body" TargetType="Label">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#1F2937, Dark=#F3F4F6}" />
+        </Style>
 
-        <Entry x:Name="ExpenseEntry" Placeholder="Expense" Keyboard="Numeric" TextColor="White" />
-        <Entry x:Name="WeightEntry" Placeholder="Weight" Keyboard="Numeric" TextColor="White" />
+        <Style x:Key="CardBox" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 14" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="Stroke" Value="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}" />
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#FFFFFF, Dark=#2A2A2C}" />
+            <Setter Property="Padding" Value="28" />
+        </Style>
+        <Style x:Key="Chip" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="Stroke" Value="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="HeightRequest" Value="88" />
+        </Style>
+        <Style x:Key="Swatch" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 20" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="Stroke" Value="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}" />
+            <Setter Property="WidthRequest" Value="40" />
+            <Setter Property="HeightRequest" Value="40" />
+        </Style>
+        <Style x:Key="FieldBox" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 8" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="Stroke" Value="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}" />
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#FAFAF9, Dark=#232325}" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="HeightRequest" Value="44" />
+        </Style>
+        <Style x:Key="Input" TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#1F2937, Dark=#F3F4F6}" />
+            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light=#9CA3AF, Dark=#6B7280}" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
 
-        <Label Text="Colour" />
-        <Picker x:Name="ColourPicker"
-                ItemsSource="{Binding ColourOptions}"
-                TextColor="White" 
-                 BackgroundColor="#06AB78"
-               />
+        <Style x:Key="BtnPrimary" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#4C8C4A" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="HeightRequest" Value="42" />
+            <Setter Property="Padding" Value="24,0" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style x:Key="BtnGhost" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" />
+            <Setter Property="BorderColor" Value="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="HeightRequest" Value="42" />
+            <Setter Property="Padding" Value="24,0" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </ContentPage.Resources>
 
-        <!-- Type-specific field -->
-        <Entry x:Name="MilkEntry" Placeholder="Milk" Keyboard="Numeric" IsVisible="False" BackgroundColor="White" TextColor="Black"/>
-        <Entry x:Name="WoolEntry" Placeholder="Wool" Keyboard="Numeric" IsVisible="False" BackgroundColor="White" TextColor="Black" />
+    <ScrollView>
+        <VerticalStackLayout WidthRequest="560" HorizontalOptions="Center" Padding="0,36" Spacing="20">
 
-        <Button Text="Add" Clicked="AddButton_Clicked" BackgroundColor="White" TextColor="Black"/>
-    </VerticalStackLayout>
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Add livestock" Style="{StaticResource PageH}" />
+                <Label Text="Register a new animal in your herd." Style="{StaticResource PageSub}" />
+            </VerticalStackLayout>
+
+            <Border Style="{StaticResource CardBox}">
+                <VerticalStackLayout Spacing="26">
+
+                    <!-- Type -->
+                    <VerticalStackLayout>
+                        <Label Text="TYPE" Style="{StaticResource Section}" />
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                            <Border x:Name="CowChip" Grid.Column="0" Style="{StaticResource Chip}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnTypeTapped" CommandParameter="Cow" />
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="4">
+                                    <Label Text="🐄" FontSize="28" HorizontalTextAlignment="Center" />
+                                    <Label Text="Cow" Style="{StaticResource Body}" HorizontalTextAlignment="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+                            <Border x:Name="SheepChip" Grid.Column="1" Style="{StaticResource Chip}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnTypeTapped" CommandParameter="Sheep" />
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="4">
+                                    <Label Text="🐑" FontSize="28" HorizontalTextAlignment="Center" />
+                                    <Label Text="Sheep" Style="{StaticResource Body}" HorizontalTextAlignment="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+
+                    <!-- Colour -->
+                    <VerticalStackLayout>
+                        <Label Text="COLOUR" Style="{StaticResource Section}" />
+                        <HorizontalStackLayout Spacing="24">
+                            <VerticalStackLayout Spacing="6">
+                                <Border x:Name="BlackSwatch" Style="{StaticResource Swatch}" BackgroundColor="#111827">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnColourTapped" CommandParameter="black" />
+                                    </Border.GestureRecognizers>
+                                </Border>
+                                <Label Text="Black" Style="{StaticResource PageSub}" HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Spacing="6">
+                                <Border x:Name="RedSwatch" Style="{StaticResource Swatch}" BackgroundColor="#C0392B">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnColourTapped" CommandParameter="red" />
+                                    </Border.GestureRecognizers>
+                                </Border>
+                                <Label Text="Red" Style="{StaticResource PageSub}" HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Spacing="6">
+                                <Border x:Name="WhiteSwatch" Style="{StaticResource Swatch}" BackgroundColor="#FFFFFF">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnColourTapped" CommandParameter="white" />
+                                    </Border.GestureRecognizers>
+                                </Border>
+                                <Label Text="White" Style="{StaticResource PageSub}" HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <!-- Expense / Weight -->
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="EXPENSE" Style="{StaticResource Section}" />
+                            <Border Style="{StaticResource FieldBox}">
+                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="6">
+                                    <Label Text="$" Style="{StaticResource PageSub}" VerticalOptions="Center" />
+                                    <Entry x:Name="ExpenseEntry" Grid.Column="1" Placeholder="0.00"
+                                           Keyboard="Numeric" Style="{StaticResource Input}" />
+                                </Grid>
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="WEIGHT" Style="{StaticResource Section}" />
+                            <Border Style="{StaticResource FieldBox}">
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6">
+                                    <Entry x:Name="WeightEntry" Placeholder="0" Keyboard="Numeric"
+                                           Style="{StaticResource Input}" />
+                                    <Label Grid.Column="1" Text="kg" Style="{StaticResource PageSub}" VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- Type-specific -->
+                    <VerticalStackLayout x:Name="MilkField" IsVisible="False">
+                        <Label Text="MILK PRODUCTION" Style="{StaticResource Section}" />
+                        <Border Style="{StaticResource FieldBox}">
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6">
+                                <Entry x:Name="MilkEntry" Placeholder="0" Keyboard="Numeric" Style="{StaticResource Input}" />
+                                <Label Grid.Column="1" Text="L" Style="{StaticResource PageSub}" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout x:Name="WoolField" IsVisible="False">
+                        <Label Text="WOOL PRODUCTION" Style="{StaticResource Section}" />
+                        <Border Style="{StaticResource FieldBox}">
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6">
+                                <Entry x:Name="WoolEntry" Placeholder="0" Keyboard="Numeric" Style="{StaticResource Input}" />
+                                <Label Grid.Column="1" Text="kg" Style="{StaticResource PageSub}" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}" />
+
+                    <HorizontalStackLayout HorizontalOptions="End" Spacing="12">
+                        <Button Text="Cancel" Style="{StaticResource BtnGhost}" Clicked="CancelButton_Clicked" />
+                        <Button Text="Add livestock" Style="{StaticResource BtnPrimary}" Clicked="AddButton_Clicked" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

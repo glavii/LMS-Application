@@ -5,35 +5,84 @@
              xmlns:local="clr-namespace:LMS_Application"
              xmlns:pages="clr-namespace:LMS_Application.Pages"
              x:DataType="pages:DisplayPage"
-             Title="List"
-             BackgroundColor="#06AB78">
-    <CollectionView ItemsSource="{Binding Livestocks}"
-                    ItemsUpdatingScrollMode="KeepLastItemInView">
-        <CollectionView.Header>
-            <Grid BackgroundColor="#06AB78" ColumnDefinitions="*,*,*,*,*,*,*" Padding="5">
-                <Label Grid.Column="0" Text="Type" TextColor="#ffffff"/>
-                <Label Grid.Column="1" Text="Id" TextColor="#ffffff"/>
-                <Label Grid.Column="2" Text="Expense" TextColor="#ffffff"/>
-                <Label Grid.Column="3" Text="Weight" TextColor="#ffffff"/>
-                <Label Grid.Column="4" Text="Colour" TextColor="#ffffff"/>
-                <Label Grid.Column="5" Text="Milk" TextColor="#ffffff"/>
-                <Label Grid.Column="6" Text="Wool" TextColor="#ffffff"/>
-            </Grid>
-        </CollectionView.Header>
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="local:Livestock">
-                <Border BackgroundColor="#ffffff" StrokeShape="RoundRectangle 10" Padding="5">
-                    <Grid ColumnDefinitions="*,*,*,*,*,*,*">
-                        <Label Grid.Column="0" Text="{Binding Type}" TextColor="#30313D"/>
-                        <Label Grid.Column="1" Text="{Binding Id}" TextColor="#30313D"/>
-                        <Label Grid.Column="2" Text="{Binding Expense}" TextColor="#30313D"/>
-                        <Label Grid.Column="3" Text="{Binding Weight}" TextColor="#30313D"/>
-                        <Label Grid.Column="4" Text="{Binding Colour}" TextColor="#30313D"/>
-                        <Label Grid.Column="5" x:DataType="local:Cow" Text="{Binding Milk}" TextColor="#30313D"/>
-                        <Label Grid.Column="6" x:DataType="local:Sheep" Text="{Binding Wool}" TextColor="#30313D"/>
-                    </Grid>
-                </Border>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+             Title="Livestock">
+
+    <ContentPage.Resources>
+        <ColumnDefinitionCollection x:Key="Cols">
+            <ColumnDefinition Width="1.2*" />
+            <ColumnDefinition Width="0.8*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </ColumnDefinitionCollection>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="32,28,32,16" RowSpacing="16">
+
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+            <VerticalStackLayout Spacing="2">
+                <Label Text="Livestock" Style="{StaticResource PageTitle}" />
+                <Label Text="{Binding Livestocks.Count, StringFormat='{0} animals'}"
+                       Style="{StaticResource Muted}" />
+            </VerticalStackLayout>
+            <Button Grid.Column="1" Text="Add animal"
+                    Style="{StaticResource PrimaryButton}"
+                    Clicked="OnAddClicked" />
+        </Grid>
+
+        <Grid Grid.Row="1" ColumnDefinitions="{StaticResource Cols}" Padding="16,0">
+            <Label Grid.Column="0" Text="TYPE"    Style="{StaticResource HeadCell}" />
+            <Label Grid.Column="1" Text="ID"      Style="{StaticResource HeadCell}" />
+            <Label Grid.Column="2" Text="EXPENSE" Style="{StaticResource HeadCell}" HorizontalTextAlignment="End" />
+            <Label Grid.Column="3" Text="WEIGHT"  Style="{StaticResource HeadCell}" HorizontalTextAlignment="End" />
+            <Label Grid.Column="4" Text="COLOUR"  Style="{StaticResource HeadCell}" Margin="24,0,0,0" />
+            <Label Grid.Column="5" Text="MILK"    Style="{StaticResource HeadCell}" HorizontalTextAlignment="End" />
+            <Label Grid.Column="6" Text="WOOL"    Style="{StaticResource HeadCell}" HorizontalTextAlignment="End" />
+        </Grid>
+
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Livestocks}"
+                        SelectionMode="None"
+                        ItemsUpdatingScrollMode="KeepLastItemInView">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout VerticalOptions="Center" Spacing="6" Padding="0,60">
+                    <Label Text="No livestock yet" FontSize="16" HorizontalTextAlignment="Center"
+                           Style="{StaticResource Cell}" />
+                    <Label Text="Add your first animal to get started."
+                           Style="{StaticResource Muted}" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="local:Livestock">
+                    <Border Style="{StaticResource Card}">
+                        <Grid ColumnDefinitions="{StaticResource Cols}">
+                            <Border Grid.Column="0" Style="{StaticResource Badge}">
+                                <Label Text="{Binding Type}" FontSize="12" FontAttributes="Bold"
+                                       TextColor="#4C8C4A" />
+                            </Border>
+                            <Label Grid.Column="1" Text="{Binding Id}" Style="{StaticResource Cell}" />
+                            <Label Grid.Column="2" Text="{Binding Expense, StringFormat='{0:C}'}"
+                                   Style="{StaticResource Cell}" HorizontalTextAlignment="End" />
+                            <Label Grid.Column="3" Text="{Binding Weight, StringFormat='{0:0.#} kg'}"
+                                   Style="{StaticResource Cell}" HorizontalTextAlignment="End" />
+                            <Label Grid.Column="4" Text="{Binding Colour}"
+                                   Style="{StaticResource Cell}" Margin="24,0,0,0" />
+                            <Label Grid.Column="5" x:DataType="local:Cow"
+                                   Text="{Binding Milk, StringFormat='{0:0.#} L', FallbackValue='—'}"
+                                   Style="{StaticResource Cell}" HorizontalTextAlignment="End" />
+                            <Label Grid.Column="6" x:DataType="local:Sheep"
+                                   Text="{Binding Wool, StringFormat='{0:0.#} kg', FallbackValue='—'}"
+                                   Style="{StaticResource Cell}" HorizontalTextAlignment="End" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

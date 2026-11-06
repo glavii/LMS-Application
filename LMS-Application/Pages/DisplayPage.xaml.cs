@@ -20,4 +20,7 @@ public partial class DisplayPage : ContentPage
 
 
     }
+
+    private async void OnAddClicked(object sender, EventArgs e)
+    => await Shell.Current.GoToAsync("//AddLivestockPage");
 }

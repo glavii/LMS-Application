@@ -3,35 +3,61 @@ namespace LMS_Application.Pages;
 public partial class AddLivestockPage : ContentPage
 {
     private readonly DatabaseService _dbs;
+    private string? _type;
+    private string? _colour;
 
-    public List<string> LivestockTypes { get; set; } = new List<string> { "Cow", "Sheep" };
-    public List<string> ColourOptions { get; set; } = new List<string> { "black", "red", "white" };
+    private static readonly Color Accent = Color.FromArgb("#4C8C4A");
+    private static Color Neutral =>
+        Application.Current?.RequestedTheme == AppTheme.Dark
+            ? Color.FromArgb("#3A3A3C")
+            : Color.FromArgb("#E5E7EB");
 
     public AddLivestockPage(DatabaseService dbs)
     {
         InitializeComponent();
-        BindingContext = this;
         _dbs = dbs;
     }
 
-    private void LivestockTypePicker_SelectedIndexChanged(object sender, EventArgs e)
+    private static void Mark(Border b, bool on)
     {
-        var type = LivestockTypePicker.SelectedItem as string;
-        MilkEntry.IsVisible = type == "Cow";
-        WoolEntry.IsVisible = type == "Sheep";
+        b.Stroke = on ? Accent : Neutral;
+        b.StrokeThickness = on ? 2 : 1;
     }
+
+    private void SetType(string? type)
+    {
+        _type = type;
+        Mark(CowChip, type == "Cow");
+        Mark(SheepChip, type == "Sheep");
+        MilkField.IsVisible = type == "Cow";
+        WoolField.IsVisible = type == "Sheep";
+    }
+
+    private void SetColour(string? colour)
+    {
+        _colour = colour;
+        Mark(BlackSwatch, colour == "black");
+        Mark(RedSwatch, colour == "red");
+        Mark(WhiteSwatch, colour == "white");
+    }
+
+    private void OnTypeTapped(object? sender, TappedEventArgs e) => SetType(e.Parameter as string);
+    private void OnColourTapped(object? sender, TappedEventArgs e) => SetColour(e.Parameter as string);
+
+    private async void CancelButton_Clicked(object sender, EventArgs e)
+        => await Shell.Current.GoToAsync("//DisplayPage");
 
     private async void AddButton_Clicked(object sender, EventArgs e)
     {
-        if (LivestockTypePicker.SelectedItem is not string type)
+        if (_type is null)
         {
             await DisplayAlert("", "Please select a livestock type", "OK");
             return;
         }
 
-        if (ColourPicker.SelectedItem is not string colour)
+        if (_colour is null)
         {
-            await DisplayAlert("", "Invalid input", "OK"); // colour must be black/red/white
+            await DisplayAlert("", "Please select a colour", "OK");
             return;
         }
 
@@ -44,43 +70,25 @@ public partial class AddLivestockPage : ContentPage
 
         Livestock record;
 
-        if (type == "Cow")
+        if (_type == "Cow")
         {
             if (!double.TryParse(MilkEntry.Text, out double milk))
             {
                 await DisplayAlert("", "Invalid input", "OK");
                 return;
             }
-
-            record = new Cow
-            {
-                Expense = expense,
-                Weight = weight,
-                Colour = colour,
-                Milk = milk
-            };
+            record = new Cow { Expense = expense, Weight = weight, Colour = _colour, Milk = milk };
         }
-        else if (type == "Sheep")
+        else
         {
             if (!double.TryParse(WoolEntry.Text, out double wool))
             {
                 await DisplayAlert("", "Invalid input", "OK");
                 return;
             }
+            record = new Sheep { Expense = expense, Weight = weight, Colour = _colour, Wool = wool };
+        }
 
-            record = new Sheep
-            {
-                Expense = expense,
-                Weight = weight,
-                Colour = colour,
-                Wool = wool
-            };
-        }
-        else
-        {
-            await DisplayAlert("", "Invalid livestock type", "OK");
-            return;
-        }
         int added = _dbs.InsertItem(record);
 
         if (added > 0)
@@ -88,15 +96,12 @@ public partial class AddLivestockPage : ContentPage
             WeakReferenceMessenger.Default.Send(new DBUpdateMessage(true));
             await DisplayAlert("", "Livestock added successfully", "OK");
 
-            // clear inputs
-            LivestockTypePicker.SelectedItem = null;
-            ColourPicker.SelectedItem = null;
+            SetType(null);
+            SetColour(null);
             ExpenseEntry.Text = string.Empty;
             WeightEntry.Text = string.Empty;
             MilkEntry.Text = string.Empty;
             WoolEntry.Text = string.Empty;
-            MilkEntry.IsVisible = false;
-            WoolEntry.IsVisible = false;
         }
         else
         {
