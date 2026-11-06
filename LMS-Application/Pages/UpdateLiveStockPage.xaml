@@ -2,34 +2,223 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Update Livestock"
-              BackgroundColor="#06AB78">
-    <VerticalStackLayout Padding="20" Spacing="15" WidthRequest="400">
+             BackgroundColor="{AppThemeBinding Light=#F7F7F5, Dark=#1C1C1E}">
 
-        <Label Text="Select Livestock" />
-        <Picker x:Name="LivestockIdPicker"
-                ItemsSource="{Binding LivestockRecords}"
-                ItemDisplayBinding="{Binding DisplayName}"
-                SelectedIndexChanged="LivestockIdPicker_SelectedIndexChanged" />
+    <ContentPage.Resources>
+        <Style x:Key="PageH" TargetType="Label">
+            <Setter Property="FontSize" Value="26" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#1F2937, Dark=#F3F4F6}" />
+        </Style>
+        <Style x:Key="PageSub" TargetType="Label">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" />
+        </Style>
+        <Style x:Key="Section" TargetType="Label" BasedOn="{StaticResource PageSub}">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,0,10" />
+        </Style>
+        <Style x:Key="Placeholder" TargetType="Label">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#9CA3AF, Dark=#6B7280}" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="InputTransparent" Value="True" />
+            <Setter Property="IsVisible" Value="False" />
+            <Setter Property="Margin" Value="2,0,0,0" />
+        </Style>
 
-        <BoxView HeightRequest="1" Color="Black" />
+        <Style x:Key="CardBox" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 14" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="Stroke" Value="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}" />
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#FFFFFF, Dark=#2A2A2C}" />
+            <Setter Property="Padding" Value="32" />
+        </Style>
+        <Style x:Key="FieldBox" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 8" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="Stroke" Value="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}" />
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#FAFAF9, Dark=#232325}" />
+            <Setter Property="Padding" Value="14,0" />
+            <Setter Property="HeightRequest" Value="48" />
+        </Style>
+        <Style x:Key="Input" TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#1F2937, Dark=#F3F4F6}" />
+            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light=#9CA3AF, Dark=#6B7280}" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+        <Style x:Key="FieldPicker" TargetType="Picker">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#1F2937, Dark=#F3F4F6}" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
 
-        <Label Text="Livestock Type" />
-        <Picker x:Name="LivestockTypePicker"
-                ItemsSource="{Binding LivestockTypes}"
-                IsEnabled="False"
-                TextColor="white"/>
+        <Style x:Key="BtnPrimary" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#4C8C4A" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="HeightRequest" Value="44" />
+            <Setter Property="Padding" Value="28,0" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#D1D5DB, Dark=#3A3A3C}" />
+                                <Setter Property="TextColor" Value="{AppThemeBinding Light=#9CA3AF, Dark=#6B7280}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
 
-        <Entry x:Name="ExpenseEntry" Placeholder="Expense" Keyboard="Numeric" />
-        <Entry x:Name="WeightEntry" Placeholder="Weight" Keyboard="Numeric" />
+    <ScrollView>
+        <VerticalStackLayout MaximumWidthRequest="620" HorizontalOptions="Fill" Margin="24,0"
+                             Padding="0,40" Spacing="24">
 
-        <Label Text="Colour" />
-        <Picker x:Name="ColourPicker"
-                ItemsSource="{Binding ColourOptions}" />
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Update livestock" Style="{StaticResource PageH}" />
+                <Label Text="Select an animal, then edit its details." Style="{StaticResource PageSub}" />
+            </VerticalStackLayout>
 
-        <!-- Type-specific field -->
-        <Entry x:Name="MilkEntry" Placeholder="Milk" Keyboard="Numeric" IsVisible="False" />
-        <Entry x:Name="WoolEntry" Placeholder="Wool" Keyboard="Numeric" IsVisible="False" />
+            <Border Style="{StaticResource CardBox}">
+                <VerticalStackLayout Spacing="30">
 
-        <Button x:Name="SubmitButton" Text="Update" Clicked="UpdateButton_Clicked" IsEnabled="False" BackgroundColor="White" TextColor="Black"/>
-    </VerticalStackLayout>
+                    <!-- Select record -->
+                    <VerticalStackLayout>
+                        <Label Text="SELECT RECORD" Style="{StaticResource Section}" />
+                        <Border Style="{StaticResource FieldBox}">
+                            <Grid>
+                                <Label Text="Choose a livestock record"
+           Style="{StaticResource Placeholder}"
+           InputTransparent="True">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                         Binding="{Binding SelectedIndex, Source={x:Reference LivestockIdPicker}}"
+                         Value="-1">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+
+                                <Picker x:Name="LivestockIdPicker"
+            Style="{StaticResource FieldPicker}"
+            ItemsSource="{Binding LivestockRecords}"
+            ItemDisplayBinding="{Binding DisplayName}"
+            SelectedIndexChanged="LivestockIdPicker_SelectedIndexChanged" />
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}" />
+
+                    <!-- Type (read-only) -->
+                    <VerticalStackLayout>
+                        <Label Text="TYPE (CANNOT BE CHANGED)" Style="{StaticResource Section}" />
+                        <Border Style="{StaticResource FieldBox}" Opacity="0.7">
+                            <Grid>
+                                <Picker x:Name="LivestockTypePicker"
+                                        Style="{StaticResource FieldPicker}"
+                                        ItemsSource="{Binding LivestockTypes}"
+                                        IsEnabled="False" />
+                                <Label Text="Select a record first" Style="{StaticResource Placeholder}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding SelectedIndex, Source={x:Reference LivestockTypePicker}}"
+                                                     Value="-1">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Expense / Weight -->
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="24">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="EXPENSE" Style="{StaticResource Section}" />
+                            <Border Style="{StaticResource FieldBox}">
+                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                                    <Label Text="$" Style="{StaticResource PageSub}" VerticalOptions="Center" />
+                                    <Entry x:Name="ExpenseEntry" Grid.Column="1" Placeholder="0.00"
+                                           Keyboard="Numeric" Style="{StaticResource Input}" />
+                                </Grid>
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="WEIGHT" Style="{StaticResource Section}" />
+                            <Border Style="{StaticResource FieldBox}">
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                    <Entry x:Name="WeightEntry" Placeholder="0" Keyboard="Numeric"
+                                           Style="{StaticResource Input}" />
+                                    <Label Grid.Column="1" Text="kg" Style="{StaticResource PageSub}" VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- Colour -->
+                    <VerticalStackLayout>
+                        <Label Text="COLOUR" Style="{StaticResource Section}" />
+                        <Border Style="{StaticResource FieldBox}">
+                            <Grid>
+                                <Picker x:Name="ColourPicker"
+                                        Style="{StaticResource FieldPicker}"
+                                        ItemsSource="{Binding ColourOptions}" />
+                                <Label Text="Select a colour" Style="{StaticResource Placeholder}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding SelectedIndex, Source={x:Reference ColourPicker}}"
+                                                     Value="-1">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Type-specific -->
+                    <VerticalStackLayout IsVisible="{Binding IsVisible, Source={x:Reference MilkEntry}}">
+                        <Label Text="MILK PRODUCTION" Style="{StaticResource Section}" />
+                        <Border Style="{StaticResource FieldBox}">
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                <Entry x:Name="MilkEntry" Placeholder="0" Keyboard="Numeric" IsVisible="False"
+                                       Style="{StaticResource Input}" />
+                                <Label Grid.Column="1" Text="L" Style="{StaticResource PageSub}" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout IsVisible="{Binding IsVisible, Source={x:Reference WoolEntry}}">
+                        <Label Text="WOOL PRODUCTION" Style="{StaticResource Section}" />
+                        <Border Style="{StaticResource FieldBox}">
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                <Entry x:Name="WoolEntry" Placeholder="0" Keyboard="Numeric" IsVisible="False"
+                                       Style="{StaticResource Input}" />
+                                <Label Grid.Column="1" Text="kg" Style="{StaticResource PageSub}" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}" />
+
+                    <HorizontalStackLayout HorizontalOptions="End">
+                        <Button x:Name="SubmitButton" Text="Update livestock"
+                                Style="{StaticResource BtnPrimary}"
+                                Clicked="UpdateButton_Clicked" IsEnabled="False" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

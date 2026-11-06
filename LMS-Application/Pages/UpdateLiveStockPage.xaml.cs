@@ -156,6 +156,7 @@ public partial class UpdateLivestockPage : ContentPage
 
     private void ClearForm()
     {
+        LivestockTypePicker.SelectedItem = null;   // add this
         ColourPicker.SelectedItem = null;
         ExpenseEntry.Text = string.Empty;
         WeightEntry.Text = string.Empty;

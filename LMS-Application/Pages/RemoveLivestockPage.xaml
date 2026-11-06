@@ -5,46 +5,130 @@
              xmlns:pages="clr-namespace:LMS_Application.Pages"
              x:DataType="pages:RemoveLivestockPage"
              Title="Remove Livestock"
-             BackgroundColor="#06AB78"
-            >
+             BackgroundColor="{AppThemeBinding Light=#F7F7F5, Dark=#1C1C1E}">
 
-    <VerticalStackLayout Padding="20" Spacing="15" WidthRequest="400">
-        <Label Text="Remove records" FontAttributes="Bold" />
+    <ContentPage.Resources>
+        <ColumnDefinitionCollection x:Key="Cols">
+            <ColumnDefinition Width="1.2*" />
+            <ColumnDefinition Width="0.8*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </ColumnDefinitionCollection>
 
-        <Label Text="Enter livestock id" />
-        <Entry x:Name="IdEntry" Placeholder="Livestock ID" Keyboard="Numeric"  BackgroundColor="White" TextColor="Black"/>
+        <Style x:Key="PageH" TargetType="Label">
+            <Setter Property="FontSize" Value="26" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#1F2937, Dark=#F3F4F6}" />
+        </Style>
+        <Style x:Key="PageSub" TargetType="Label">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#6B7280, Dark=#9CA3AF}" />
+        </Style>
+        <Style x:Key="Section" TargetType="Label" BasedOn="{StaticResource PageSub}">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+        </Style>
+        <Style x:Key="Cell" TargetType="Label">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#1F2937, Dark=#F3F4F6}" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
 
-        <Button Text="Remove" Clicked="DeleteButton_Clicked" BackgroundColor="White" TextColor="Black" />
+        <Style x:Key="CardBox" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 14" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="Stroke" Value="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}" />
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#FFFFFF, Dark=#2A2A2C}" />
+            <Setter Property="Padding" Value="28" />
+        </Style>
+        <Style x:Key="FieldBox" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 8" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="Stroke" Value="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}" />
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#FAFAF9, Dark=#232325}" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="HeightRequest" Value="44" />
+        </Style>
+        <Style x:Key="Input" TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#1F2937, Dark=#F3F4F6}" />
+            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light=#9CA3AF, Dark=#6B7280}" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+        <Style x:Key="BtnDanger" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#C0392B" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="HeightRequest" Value="42" />
+            <Setter Property="Padding" Value="24,0" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </ContentPage.Resources>
 
-        <!-- Reused row template from DataPage, bound to the single found record -->
-        <CollectionView ItemsSource="{Binding FoundRecord}"
-                        IsVisible="{Binding HasFoundRecord}">
-            <CollectionView.Header>
-                <Grid BackgroundColor="#06AB78" ColumnDefinitions="*,*,*,*,*,*,*" Padding="10" >
-                    <Label Grid.Column="0" Text="Type" TextColor="White"/>
-                    <Label Grid.Column="1" Text="Id" TextColor="White"/>
-                    <Label Grid.Column="2" Text="Expense" TextColor="White"/>
-                    <Label Grid.Column="3" Text="Weight" TextColor="White"/>
-                    <Label Grid.Column="4" Text="Colour" TextColor="White"/>
-                    <Label Grid.Column="5" Text="Milk" TextColor="White"/>
-                    <Label Grid.Column="6" Text="Wool" TextColor="White"/>
-                </Grid>
-            </CollectionView.Header>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="local:Livestock">
-                    <Border BackgroundColor="Black" StrokeShape="RoundRectangle 10" Padding="5">
-                        <Grid ColumnDefinitions="*,*,*,*,*,*,*">
-                            <Label Grid.Column="0" Text="{Binding Type}" TextColor="White"/>
-                            <Label Grid.Column="1" Text="{Binding Id}" TextColor="White"/>
-                            <Label Grid.Column="2" Text="{Binding Expense}" TextColor="White"/>
-                            <Label Grid.Column="3" Text="{Binding Weight}" TextColor="White"/>
-                            <Label Grid.Column="4" Text="{Binding Colour}" TextColor="White"/>
-                            <Label Grid.Column="5" x:DataType="local:Cow" Text="{Binding Milk}" TextColor="White"/>
-                            <Label Grid.Column="6" x:DataType="local:Sheep" Text="{Binding Wool}" TextColor="White"/>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout WidthRequest="560" HorizontalOptions="Center" Padding="0,36" Spacing="20">
+
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Remove livestock" Style="{StaticResource PageH}" />
+                <Label Text="Look up an animal by ID and delete its record." Style="{StaticResource PageSub}" />
+            </VerticalStackLayout>
+
+            <Border Style="{StaticResource CardBox}">
+                <VerticalStackLayout Spacing="22">
+
+                    <VerticalStackLayout>
+                        <Label Text="LIVESTOCK ID" Style="{StaticResource Section}" />
+                        <Border Style="{StaticResource FieldBox}">
+                            <Entry x:Name="IdEntry" Placeholder="e.g. 12" Keyboard="Numeric"
+                                   Style="{StaticResource Input}" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Found record preview -->
+                    <VerticalStackLayout IsVisible="{Binding HasFoundRecord}" Spacing="8">
+                        <Label Text="RECORD" Style="{StaticResource Section}" />
+
+                        <CollectionView ItemsSource="{Binding FoundRecord}" SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="local:Livestock">
+                                    <Border StrokeShape="RoundRectangle 10" StrokeThickness="1" Padding="16,12"
+                                            Stroke="#C0392B"
+                                            BackgroundColor="{AppThemeBinding Light=#FDF2F0, Dark=#3A2522}">
+                                        <Grid ColumnDefinitions="{StaticResource Cols}">
+                                            <Label Grid.Column="0" Text="{Binding Type}" Style="{StaticResource Cell}" FontAttributes="Bold" />
+                                            <Label Grid.Column="1" Text="{Binding Id}" Style="{StaticResource Cell}" />
+                                            <Label Grid.Column="2" Text="{Binding Expense, StringFormat='{0:C}'}"
+                                                   Style="{StaticResource Cell}" HorizontalTextAlignment="End" />
+                                            <Label Grid.Column="3" Text="{Binding Weight, StringFormat='{0:0.#} kg'}"
+                                                   Style="{StaticResource Cell}" HorizontalTextAlignment="End" />
+                                            <Label Grid.Column="4" Text="{Binding Colour}"
+                                                   Style="{StaticResource Cell}" Margin="24,0,0,0" />
+                                            <Label Grid.Column="5" x:DataType="local:Cow"
+                                                   Text="{Binding Milk, StringFormat='{0:0.#} L', FallbackValue='—'}"
+                                                   Style="{StaticResource Cell}" HorizontalTextAlignment="End" />
+                                            <Label Grid.Column="6" x:DataType="local:Sheep"
+                                                   Text="{Binding Wool, StringFormat='{0:0.#} kg', FallbackValue='—'}"
+                                                   Style="{StaticResource Cell}" HorizontalTextAlignment="End" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+                    <BoxView HeightRequest="1" Color="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}" />
+
+                    <HorizontalStackLayout HorizontalOptions="End">
+                        <Button Text="Remove livestock" Style="{StaticResource BtnDanger}"
+                                Clicked="DeleteButton_Clicked" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
