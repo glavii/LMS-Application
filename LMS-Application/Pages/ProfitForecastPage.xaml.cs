@@ -60,7 +60,7 @@ public partial class ProfitForecastPage : ContentPage
         double totalProfit = CalculateProfitForcast();
         double avgDaily = (qty * days == 0) ? 0 : totalProfit / (qty * days);
 
-        AvgProfitLabel.Text = $"Based on Avg Daily {type} Profit of ${avgDaily:F2}";
+        AvgProfitLabel.Text = $"Based on Average Daily {type} Profit of ${avgDaily:F2}";
         TotalProfitLabel.Text = $"Buying {qty} {type.ToLower()}s would bring in estimated profit over {days} days: ${totalProfit:F0}";
         ResultPanel.IsVisible = true;
     }

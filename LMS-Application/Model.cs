@@ -6,13 +6,23 @@ namespace LMS_Application;
 
 public abstract class Livestock
 {
+    protected const double TaxPerKg = 0.02;
+
     [PrimaryKey, AutoIncrement]
     public int Id { get; set; }
     public double Expense { get; set; }
     public double Weight { get; set; }
     public string Colour { get; set; } = string.Empty;
+
     [Ignore]
     public string Type => GetType().Name;
+
+    [Ignore]
+    public double Tax => Weight * TaxPerKg;
+
+    [Ignore]
+    public double Cost => Expense + Tax;
+
     [Ignore]
     public abstract double DailyProfit { get; }
 }

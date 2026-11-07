@@ -17,22 +17,79 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </ColumnDefinitionCollection>
+
+        <Style x:Key="FilterBox" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 8" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="Stroke" Value="{AppThemeBinding Light=#E5E7EB, Dark=#3A3A3C}" />
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#FFFFFF, Dark=#2A2A2C}" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="HeightRequest" Value="40" />
+        </Style>
+        <Style x:Key="FilterPicker" TargetType="Picker">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#1F2937, Dark=#F3F4F6}" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+        <Style x:Key="ClearButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#4C8C4A, Dark=#8FC48D}" />
+            <Setter Property="BorderColor" Value="#4C8C4A" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="Padding" Value="18,0" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="VerticalOptions" Value="End" />
+        </Style>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto,Auto,*" Padding="32,28,32,16" RowSpacing="16">
+    <Grid RowDefinitions="Auto,Auto,Auto,*" Padding="32,28,32,16" RowSpacing="16">
 
+        <!-- Title + Add -->
         <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
             <VerticalStackLayout Spacing="2">
                 <Label Text="Livestock" Style="{StaticResource PageTitle}" />
-                <Label Text="{Binding Livestocks.Count, StringFormat='{0} animals'}"
-                       Style="{StaticResource Muted}" />
+                <Label x:Name="CountLabel" Style="{StaticResource Muted}" />
             </VerticalStackLayout>
-            <Button Grid.Column="1" Text="Add animal"
+            <Button Grid.Column="1" Text="Add animal" VerticalOptions="Center"
                     Style="{StaticResource PrimaryButton}"
                     Clicked="OnAddClicked" />
         </Grid>
 
-        <Grid Grid.Row="1" ColumnDefinitions="{StaticResource Cols}" Padding="16,0">
+        <!-- Filters + sort -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,*,*,Auto" ColumnSpacing="16">
+            <VerticalStackLayout Grid.Column="0">
+                <Label Text="TYPE" Style="{StaticResource HeadCell}" Margin="0,0,0,6" />
+                <Border Style="{StaticResource FilterBox}">
+                    <Picker x:Name="TypePicker" Style="{StaticResource FilterPicker}"
+                            SelectedIndexChanged="Filter_Changed" />
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="1">
+                <Label Text="COLOUR" Style="{StaticResource HeadCell}" Margin="0,0,0,6" />
+                <Border Style="{StaticResource FilterBox}">
+                    <Picker x:Name="ColourPicker" Style="{StaticResource FilterPicker}"
+                            SelectedIndexChanged="Filter_Changed" />
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="2">
+                <Label Text="SORT BY (DESCENDING)" Style="{StaticResource HeadCell}" Margin="0,0,0,6" />
+                <Border Style="{StaticResource FilterBox}">
+                    <Picker x:Name="SortPicker" Style="{StaticResource FilterPicker}"
+                            SelectedIndexChanged="Filter_Changed" />
+                </Border>
+            </VerticalStackLayout>
+
+            <Button Grid.Column="3" Text="Clear filters" Style="{StaticResource ClearButton}"
+                    Clicked="ClearFilters_Clicked" />
+        </Grid>
+
+        <!-- Column header -->
+        <Grid Grid.Row="2" ColumnDefinitions="{StaticResource Cols}" Padding="16,0">
             <Label Grid.Column="0" Text="TYPE"    Style="{StaticResource HeadCell}" />
             <Label Grid.Column="1" Text="ID"      Style="{StaticResource HeadCell}" />
             <Label Grid.Column="2" Text="EXPENSE" Style="{StaticResource HeadCell}" HorizontalTextAlignment="End" />
@@ -42,7 +99,7 @@
             <Label Grid.Column="6" Text="WOOL"    Style="{StaticResource HeadCell}" HorizontalTextAlignment="End" />
         </Grid>
 
-        <CollectionView Grid.Row="2" ItemsSource="{Binding Livestocks}"
+        <CollectionView Grid.Row="3" ItemsSource="{Binding Livestocks}"
                         SelectionMode="None"
                         ItemsUpdatingScrollMode="KeepLastItemInView">
             <CollectionView.ItemsLayout>
@@ -51,9 +108,9 @@
 
             <CollectionView.EmptyView>
                 <VerticalStackLayout VerticalOptions="Center" Spacing="6" Padding="0,60">
-                    <Label Text="No livestock yet" FontSize="16" HorizontalTextAlignment="Center"
+                    <Label Text="No matching livestock" FontSize="16" HorizontalTextAlignment="Center"
                            Style="{StaticResource Cell}" />
-                    <Label Text="Add your first animal to get started."
+                    <Label Text="Change the filters, or add an animal."
                            Style="{StaticResource Muted}" HorizontalTextAlignment="Center" />
                 </VerticalStackLayout>
             </CollectionView.EmptyView>
