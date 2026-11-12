@@ -79,5 +79,10 @@ public partial class DisplayPage : ContentPage
             ? $"{_all.Count} animals"
             : $"{list.Count} of {_all.Count} animals";
     }
+    private void OnLogout(object? sender, EventArgs e) => AppShell.Logout();
 
+    private async void OnAddClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//AddLivestockPage");
+    }
 }

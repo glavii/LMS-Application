@@ -1,0 +1,18 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LMS_Application.Pages.LoginPage" Title="Login">
+    <VerticalStackLayout WidthRequest="320" Spacing="12" VerticalOptions="Center">
+        <Label x:Name="TitleLabel" Text="Log in" FontSize="24" HorizontalOptions="Center" />
+        <Entry x:Name="UsernameEntry" Placeholder="Username" />
+        <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" />
+        <Entry x:Name="ConfirmEntry" Placeholder="Confirm password" IsPassword="True" IsVisible="False" />
+        <HorizontalStackLayout x:Name="AdminRow" Spacing="8" IsVisible="False">
+            <Label Text="Admin account" VerticalOptions="Center" />
+            <Switch x:Name="AdminSwitch" />
+        </HorizontalStackLayout>
+        <Label x:Name="ErrorLabel" IsVisible="False" />
+        <Button x:Name="ActionButton" Text="Log in" Clicked="OnActionClicked" />
+        <Button x:Name="ToggleButton" Text="Need an account? Sign up"
+                BackgroundColor="Transparent" TextColor="Gray" Clicked="OnToggleClicked" />
+    </VerticalStackLayout>
+</ContentPage>

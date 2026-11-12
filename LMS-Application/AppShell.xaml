@@ -42,7 +42,8 @@
             </Grid>
         </DataTemplate>
     </Shell.ItemTemplate>
-
+    <ShellContent x:Name="UsersTab" Title="Users"
+              ContentTemplate="{DataTemplate pages:UserManagementPage}" />
     <ShellContent Title="Livestock"   ContentTemplate="{DataTemplate pages:DisplayPage}"            Route="DisplayPage" />
     <ShellContent Title="Add"         ContentTemplate="{DataTemplate pages:AddLivestockPage}"       Route="AddLivestockPage" />
     <ShellContent Title="Update"      ContentTemplate="{DataTemplate pages:UpdateLivestockPage}"    Route="UpdateLivestockPage" />

@@ -1,0 +1,30 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:app="clr-namespace:LMS_Application"
+             x:Class="LMS_Application.Pages.UserManagementPage" Title="Users">
+    <Grid ColumnDefinitions="*,320" Padding="20" ColumnSpacing="20">
+        <CollectionView x:Name="UsersView" SelectionMode="Single" SelectionChanged="OnUserSelected">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="app:User">
+                    <HorizontalStackLayout Spacing="12" Padding="8">
+                        <Label Text="{Binding Username}" WidthRequest="160" />
+                        <Label Text="{Binding IsAdmin, StringFormat='Admin: {0}'}" />
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <VerticalStackLayout Grid.Column="1" Spacing="10">
+            <Entry x:Name="UsernameEntry" Placeholder="Username" />
+            <Entry x:Name="PasswordEntry" Placeholder="Password (blank = keep)" IsPassword="True" />
+            <HorizontalStackLayout Spacing="8">
+                <Label Text="Admin" VerticalOptions="Center" />
+                <Switch x:Name="AdminSwitch" />
+            </HorizontalStackLayout>
+            <Button Text="Add" Clicked="OnAdd" />
+            <Button Text="Update" Clicked="OnEdit" />
+            <Button Text="Delete" Clicked="OnDelete" />
+            <Button Text="Log out" Clicked="OnLogout" Margin="0,20,0,0" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

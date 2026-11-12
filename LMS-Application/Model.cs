@@ -26,6 +26,14 @@ public abstract class Livestock
     [Ignore]
     public abstract double DailyProfit { get; }
 }
+[Table("User")]
+public class User
+{
+    [PrimaryKey, AutoIncrement] public int Id { get; set; }
+    [Unique] public string Username { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;   // salted hash
+    public bool IsAdmin { get; set; }
+}
 
 [Table("Cow")]
 public class Cow : Livestock
@@ -74,3 +82,4 @@ public class FarmStatistics
 
     
 }
+

@@ -3,6 +3,7 @@ namespace LMS_Application;
 public class DatabaseService
 {
     private readonly SQLiteConnection _conn;
+    public SQLiteConnection Connection => _conn;
 
     public DatabaseService()
     {

@@ -17,7 +17,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </ColumnDefinitionCollection>
-
+        
         <Style x:Key="FilterBox" TargetType="Border">
             <Setter Property="StrokeShape" Value="RoundRectangle 8" />
             <Setter Property="StrokeThickness" Value="1" />
@@ -44,7 +44,9 @@
             <Setter Property="VerticalOptions" Value="End" />
         </Style>
     </ContentPage.Resources>
-
+    <ContentPage.ToolbarItems>
+     
+    </ContentPage.ToolbarItems>
     <Grid RowDefinitions="Auto,Auto,Auto,*" Padding="32,28,32,16" RowSpacing="16">
 
         <!-- Title + Add -->
@@ -53,9 +55,14 @@
                 <Label Text="Livestock" Style="{StaticResource PageTitle}" />
                 <Label x:Name="CountLabel" Style="{StaticResource Muted}" />
             </VerticalStackLayout>
-            <Button Grid.Column="1" Text="Add animal" VerticalOptions="Center"
-                    Style="{StaticResource PrimaryButton}"
-                    Clicked="OnAddClicked" />
+            <HorizontalStackLayout Grid.Column="1" Spacing="10" VerticalOptions="Center">
+                <Button Text="Add animal"
+            Style="{StaticResource PrimaryButton}"
+            Clicked="OnAddClicked" />
+                <Button Text="Log out"
+            Style="{StaticResource PrimaryButton}"
+            Clicked="OnLogout" />
+            </HorizontalStackLayout>
         </Grid>
 
         <!-- Filters + sort -->
